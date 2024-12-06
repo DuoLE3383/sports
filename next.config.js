@@ -1,3 +1,4 @@
+
 if (!process.env.WORDPRESS_API_URL) {
   throw new Error(`
     Please provide a valid WordPress instance URL.
@@ -11,8 +12,8 @@ module.exports = {
     unoptimized: true,
     domains: [
       process.env.WORDPRESS_API_URL.match(/(?!(w+)\.)\w*(?:\w+\.)+\w+/)[0], // Valid WP Image domain.
-      'news.humatl.com',
-      'humantl.com'
+      'sports.pheats.site',
+      'pheats.site'
     ],
   },
   async rewrites() {
@@ -28,29 +29,28 @@ module.exports = {
     return [
       // Redirect with `fbclid` query parameter
       {
-        source: '/:path*',
+        source: '/posts/:path*',
         has: [
           {
             type: 'query',
             key: 'fbclid',
           },
         ],
-        destination: 'https://news.humatl.com/:path*',
+        destination: 'https://sports.pheats.site/:path*',
         permanent: false,
       },
       // Redirect with a 'referer' header
       {
-        source: '/:path*',
+        source: '/posts/:path*',
         has: [
           {
             type: 'header',
             key: 'referer',
           },
         ],
-        destination: 'https://news.humatl.com/:path*',
+        destination: 'https://sports.pheats.site/:path*',
         permanent: false,
       },
     ];
   },
 };
-
